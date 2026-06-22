@@ -1,27 +1,30 @@
-# 001 — Windows 11 Boot-Drive Recovery
+# 001 — Windows Boot-Drive Recovery
 
 **Date:** [fill in]
-**System:** Personal PC (Windows 11 upgrade)
+**System:** Personal PC
 **Category:** Recovery · Windows · Storage
 
-> This entry is migrated from my original boot-repair notes. The structure below matches the rest of the log — paste your existing notes into the "Working the problem" section and trim as needed.
+> Migrated from my original boot-repair notes. The structure below matches the rest of the log — fold your existing notes into the "Working the problem" section and trim as needed.
 
 ## Symptom
 
-Mid-upgrade to Windows 11, the entire boot drive became corrupted and the machine wouldn't boot. The only recovery hardware on hand was a 512GB microSD card and a 2009 laptop running Windows 7 — so the recovery had to be built from very limited tools.
+While attempting a Windows 11 upgrade, the entire boot drive became corrupted and the machine would no longer boot. The only recovery hardware on hand was a 512GB microSD card and a 2009 laptop running Windows 7 — so the recovery had to be built from very limited tools.
 
 ## Working the problem
 
 [Fold your existing notes in here. Aim to capture, in order:
 - how you confirmed the boot drive was the problem
-- how you built recovery media with only the microSD card + the old laptop
-- the key tools/commands (e.g. diskpart, bcdboot, bootrec, Media Creation Tool, UEFI/Secure Boot settings)
-- what finally got it bootable again]
+- how you built recovery/install media with only the microSD card + the old Windows 7 laptop
+- the key tools/commands used (e.g. Media Creation Tool, diskpart, bootrec, bcdboot, UEFI/Secure Boot settings)
+- what finally got the machine bootable again]
 
 ## The fix
 
-[The step or combination of steps that brought it back.]
+Got the machine booting again and **settled on Windows 10** rather than continuing the Windows 11 upgrade — the priority was a stable, working system, and Win10 met that.
+
+[Add the specific recovery steps that brought it back.]
 
 ## Takeaways
 
-[What you'd keep on hand / do differently next time — e.g. a pre-built recovery USB, a known-good image, notes on the UEFI settings that mattered.]
+- Sometimes the right call is the stable option, not the newest one — chasing the Win11 upgrade is what caused the problem; Win10 got the machine working and stayed there.
+- [What you'd keep on hand next time — e.g. a pre-built recovery USB, a known-good image, notes on the UEFI/Secure Boot settings that mattered.]

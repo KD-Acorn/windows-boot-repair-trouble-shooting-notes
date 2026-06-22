@@ -1,0 +1,27 @@
+# 001 — Windows 11 Boot-Drive Recovery
+
+**Date:** [fill in]
+**System:** Personal PC (Windows 11 upgrade)
+**Category:** Recovery · Windows · Storage
+
+> This entry is migrated from my original boot-repair notes. The structure below matches the rest of the log — paste your existing notes into the "Working the problem" section and trim as needed.
+
+## Symptom
+
+Mid-upgrade to Windows 11, the entire boot drive became corrupted and the machine wouldn't boot. The only recovery hardware on hand was a 512GB microSD card and a 2009 laptop running Windows 7 — so the recovery had to be built from very limited tools.
+
+## Working the problem
+
+[Fold your existing notes in here. Aim to capture, in order:
+- how you confirmed the boot drive was the problem
+- how you built recovery media with only the microSD card + the old laptop
+- the key tools/commands (e.g. diskpart, bcdboot, bootrec, Media Creation Tool, UEFI/Secure Boot settings)
+- what finally got it bootable again]
+
+## The fix
+
+[The step or combination of steps that brought it back.]
+
+## Takeaways
+
+[What you'd keep on hand / do differently next time — e.g. a pre-built recovery USB, a known-good image, notes on the UEFI settings that mattered.]

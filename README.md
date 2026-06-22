@@ -10,7 +10,7 @@ Each entry follows the same shape: the symptom, how I worked the problem, the ac
 
 | # | Title | One-line |
 |---|-------|----------|
-| 001 | [Windows 11 boot-drive recovery](Windows-11-Boot-Drive-Recovery) | Rebuilt a corrupted boot drive using only a microSD card and a 2009 laptop |
+| 001 | [Windows 11 boot-drive recovery](Windows 11 Boot-Drive Recovery) | Rebuilt a corrupted boot drive using only a microSD card and a 2009 laptop |
 | 002 | [Recovering a storm-killed Raspberry Pi node](002-storm-killed-pi-recovery.md) | A "dead" Pi was really four stacked problems — traced it to broken IPv6 and brought it back on the mesh |
 
 *New entries get added as I hit (and clear) new walls.*

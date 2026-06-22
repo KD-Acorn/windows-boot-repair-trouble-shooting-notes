@@ -1,0 +1,43 @@
+# 002 — Recovering a Storm-Killed Raspberry Pi Node
+
+**Date:** June 2026
+**System:** Raspberry Pi 4 running Klipper / Mainsail / Moonraker (3D printer node)
+**Category:** Hardware recovery · Networking · Linux
+
+A power outage during a storm took this node down, and it stayed dark for days — invisible to scans, "offline" in the router app, no SSH. It would have been easy to call it dead and toss it. It turned out to be four separate problems stacked on top of each other.
+
+## Symptom
+
+Unreachable. No network presence, no SSH. Power LED solid, activity LED behaving oddly. Everything pointed at "the storm killed the Pi."
+
+## Working the problem (cheapest test first)
+
+**1. Is the SD card dead?** Pulled it, mounted it read-only on another machine. Mounted fine — both partitions intact, every config readable. Card wasn't dead, no data lost. Scariest outcome ruled out.
+
+**2. Is the boot partition corrupt?** Power loss often corrupts the FAT boot partition. Checked it — all firmware, kernels, device trees, and boot config present and full-sized. Healthy.
+
+**3. Is the filesystem corrupt?** Ran `fsck` on both partitions. The boot partition had a **dirty bit set — "filesystem was not properly unmounted"** — the literal fingerprint of power cut mid-operation. But the root filesystem checked clean. The storm left a mark, not real corruption.
+
+> Conclusion so far: card and data fine. Healthy card + no-boot Pi pointed away from storage, toward hardware or network.
+
+**4. Is it actually booting?** Reconnected by Ethernet — it *immediately* got an IP. It had been booting the whole time; it just couldn't get on the network. The "dead Pi" was a network problem in disguise.
+
+**5. Why no network?** NetworkManager showed **no saved Wi-Fi profile at all** — so when it lost its wired path, it had nothing to fall back to and vanished. Added Wi-Fi as a persistent profile.
+
+**6. Why does HTTPS fail but ping works?** Back online, ping and DNS worked, but every HTTPS connection died with `Connection reset by peer`. A verbose `curl` handshake gave the tell: connections resolving to **IPv6 were reset; IPv4 completed.** The network's IPv6 was broken upstream — packets went out, got reset, never finished. Ping had been succeeding over IPv6 (ICMP is simpler), which masked it.
+
+## The fix
+
+Disabled IPv6 on the Pi's connections in NetworkManager, forcing IPv4. Every failing TLS connection and package install immediately worked. Installed Tailscale and joined the node to my mesh.
+
+## Prevention
+
+- **Tailscale mesh** — node is now reachable by a stable name regardless of subnet, IP, or Wi-Fi state. A future storm can scramble its lease and I'll still reach it.
+- **Persistent Wi-Fi profile** so it auto-reconnects.
+- **Roadmap:** a UPS for clean shutdowns instead of yanked power, and a read-only root overlay so the SD card isn't written during normal operation — nearly immune to this failure mode.
+
+## Takeaways
+
+- "Dead" hardware often isn't. Eliminate the cheap, recoverable causes before condemning the expensive part.
+- The most useful clues were *contrasts*: ping worked but TLS didn't; IPv4 worked but IPv6 didn't. Differences localize a fault faster than any single test.
+- A symptom ("offline") is not a diagnosis. This was four problems stacked — dirty bit, missing Wi-Fi profile, broken IPv6, and the original power loss — each masking the next.

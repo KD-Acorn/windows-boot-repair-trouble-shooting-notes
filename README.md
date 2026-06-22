@@ -1,32 +1,16 @@
-# windows-boot-repair-trouble-shooting-notes
-## Rebuilding EFI Boot After CMS/UEFI Transition on Gigabyte X470 using microsd and windows 7 laptop
+# Engineering Log
 
-## Problem: 
-  Attempted to enable TPM 2.0 and Secure Boot for Windows 11 Upgrade. Disabling CMS Supper caused all UEFI boot entries to be lost, leaving system unable to boot
+A running log of the harder problems I run into building and running my projects and home lab — and, more importantly, how I worked through them.
 
-## Envirement: 
-  - Motherboard- Gigabyte X470 Aorus Ultra Gaming (BIOS F61c)
-  - CPU: AMD Ryzen 9 5900x
-  - OS: Windows 10
-  - Recovery Media created on: Windows 7 laptop using 7-Zip and diskpart
+I keep this for two reasons. First, it's a reference for myself: when I hit something I've seen before, I can grep my own notes instead of re-solving it from scratch. Second, it's an honest record of how I think. I'm a self-taught engineer, so the *method* — how I isolate a problem, what I test first, how I reason from symptoms to root cause — matters more than any single fix.
 
-## Root Cause:
-  Disabling CMS (Compatibility Support Module) in BIOS removed legacy boot entries. The system had no UEFI boot entry pointing to Windows EFI partition, so it could not find a bootable device.
+Each entry follows the same shape: the symptom, how I worked the problem, the actual fix, and what I'd do to prevent it next time.
 
-## Resolution: 
-  - Created bootable Windows 11 x64 media on a microSD card using 7-Zip to extract the ISO and diskpart to format and mark the partition active
-  - Booted from the microSD into WIndows 11 setup
-  - Opened Command Prompt via Troubleshoot > Advance Options > Command Prompt
-  - Used diskpart to identify the correct volume letters
-  - Rebuilt EFi boot files with bcdboot
+## Entries
 
-## Key commands:
-```
-  diskpart
-  list vol
-  exit
-  bcdboot G:\Windows /s C: /f UEFI
-  
-```
-## Result: 
-  Boot files successfully recreated. System booted into Windows normally
+| # | Title | One-line |
+|---|-------|----------|
+| 001 | [Windows 11 boot-drive recovery](001-windows-boot-drive-recovery.md) | Rebuilt a corrupted boot drive using only a microSD card and a 2009 laptop |
+| 002 | [Recovering a storm-killed Raspberry Pi node](002-storm-killed-pi-recovery.md) | A "dead" Pi was really four stacked problems — traced it to broken IPv6 and brought it back on the mesh |
+
+*New entries get added as I hit (and clear) new walls.*
